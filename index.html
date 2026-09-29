@@ -4,17 +4,52 @@
   <meta charset="UTF-8">
   <title>MiniCredito</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Vincula tu CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Bienvenido a MiniCredito</h1>
-  <p>Tu app de gestión de créditos para comercios chicos.</p>
+  <header>
+    <h1>MiniCredito</h1>
+    <p>Gestión de créditos para comercios chicos</p>
+  </header>
 
-  <!-- Aquí podés agregar tu interfaz -->
-  <div id="app"></div>
+  <main>
+    <!-- Formulario para agregar cliente -->
+    <section id="nuevo-cliente">
+      <h2>Agregar Cliente</h2>
+      <form id="formCliente">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required>
+        
+        <label for="saldo">Saldo inicial:</label>
+        <input type="number" id="saldo" required>
+        
+        <button type="submit">Guardar</button>
+      </form>
+    </section>
 
-  <!-- Vincula tu JS -->
+    <!-- Tabla de clientes -->
+    <section id="lista-clientes">
+      <h2>Clientes</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Nombre</th>
+            <th>Saldo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaClientes">
+          <!-- Aquí se insertan filas dinámicamente -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 MiniCredito</p>
+  </footer>
+
   <script src="app.js"></script>
 </body>
 </html>
