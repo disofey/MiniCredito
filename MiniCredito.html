@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MiniCredito</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>MiniCredito</h1>
+    <p>Gestión Simple de Créditos</p>
+  </header>
+
+  <main>
+    <!-- Lista de clientes -->
+    <section>
+      <h2>Clientes</h2>
+      <table id="clientes">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Nombre</th>
+            <th>Saldo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+         <!-- <tr>
+            <td>Juan Pérez</td>
+            <td>$1500</td>
+          </tr>
+          <tr>
+            <td>Ana López</td>
+            <td>$800</td>
+          </tr> -->
+          <!--Se llena dinamicamente la tala con JS-->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Botones principales -->
+    <section id="acciones">
+      <button onclick="mostrarFormulario()">➕ Nuevo Crédito</button>
+      <button onclick="verReporte()">📊 Reporte</button>
+    </section>
+  
+
+    <!-- Formulario para nuevo deudor credito -->
+    <section id="formulario" style="display:none; margin-top:1rem;">
+        <h2>Agregar Crédito</h2>
+        <label>Fecha:</label>
+        <input type="date" id="fechaCliente" value="">
+        <label>Nombre:</label>
+        <input type="text" id="nombreCliente"><br><br>
+        <label>Monto:</label>
+        <input type="number" id="montoCliente"><br><br>
+        <button onclick="guardarCliente()">Guardar</button>
+        <button class="cancelar" onclick="cancelarFormulario()">
+          Cancelar <span class="icon">❌</span>
+        </button>
+        
+    </section>
+
+    <!-- Historial de movimientos -->
+  <section id="historial" style="margin-top:2rem;">
+    <h2>Historial de Movimientos</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Nombre</th>
+          <th>Tipo</th>
+          <th>Monto</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
