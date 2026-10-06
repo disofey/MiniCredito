@@ -1,3 +1,29 @@
+async function cargarTokens() {
+  const response = await fetch("tokens.json");
+  const tokens = await response.json();
+  return tokens;
+}
+
+async function iniciarApp() {
+  const tokensValidos = await cargarTokens();
+  const tokenGuardado = localStorage.getItem("tokenUsuario");
+
+  if (tokenGuardado && Object.values(tokensValidos).includes(tokenGuardado)) {
+    inicializarSistemaFiados(); 
+  } else {
+    const tokenIngresado = prompt("Ingrese su token de acceso:");
+    if (Object.values(tokensValidos).includes(tokenIngresado)) {
+      localStorage.setItem("tokenUsuario", tokenIngresado);
+      alert("Token válido, acceso concedido ✅");
+      inicializarSistemaFiados();
+    } else {
+      alert("Acceso denegado ❌");
+    }
+  }
+}
+
+function inicializarSistemaFiados() {
+
 let clientes = JSON.parse(localStorage.getItem("clientes")) || [
   { fecha: "2026-09-01", nombre: "Juan Pérez", saldo: 1500 },
   { fecha: "2026-09-02", nombre: "Ana López", saldo: 800 }
@@ -32,10 +58,14 @@ function guardarMovimiento(nombre, fecha, monto, tipo) {
 }
 
 function guardarCliente() {
-  const fecha = document.getElementById("fechaCliente").value;
+  const fechaRaw = document.getElementById("fechaCliente").value;
   const nombre = document.getElementById("nombreCliente").value;
   const monto = parseFloat(document.getElementById("montoCliente").value);
   if (nombre && !isNaN(monto)) {
+    
+    const fecha = formatoFecha(fechaRaw); // 👈 acá transformamos la fecha
+    
+
     clientes.push({ fecha, nombre, saldo: monto });
     localStorage.setItem("clientes", JSON.stringify(clientes));
     guardarMovimiento(nombre, fecha, monto, "fiado"); // 🔑 registro en historial
@@ -50,7 +80,7 @@ function registrarPago(nombre, monto) {
   let cliente = clientes.find(c => c.nombre === nombre);
   if (cliente) {
     cliente.saldo -= monto;
-    guardarMovimiento(nombre, new Date().toISOString().split("T")[0], monto, "pago"); // 🔑 registro en historial
+    guardarMovimiento(nombre, formatoFecha(new Date()), monto, "pago"); // 🔑 registro en historial
     if (cliente.saldo <= 0) {
       clientes = clientes.filter(c => c.nombre !== nombre); // lo sacamos de la lista activa
     }
@@ -115,3 +145,15 @@ function registrarPago(nombre, index) {
     alert("Monto inválido.");
   }
 }
+
+function formatoFecha(fecha) {
+  let d = new Date(fecha);
+  let dia = String(d.getDate()).padStart(2, '0');
+  let mes = String(d.getMonth() + 1).padStart(2, '0');
+  let anio = String(d.getFullYear()).slice(-2);
+  return `${dia}/${mes}/${anio}`;
+}
+renderClientes();
+}
+
+iniciarApp();
