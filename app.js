@@ -8,7 +8,7 @@ async function iniciarApp() {
   // Mensaje institucional con botón que abre WhatsApp
   const abrirWspp = confirm("Solicita tu código para habilitar el sistema (DISOFEY).\n\n¿Quieres abrir WhatsApp para solicitarlo ahora?");
   if (abrirWspp) {
-    window.open("https://wa.link/dipjjv?text=Hola%20Emilio%20quiero%20mi%20código", "_blank"); // abre WhatsApp Web en PC
+    window.location.href = "https://wa.link/dipjjv?text=Hola%20quiero%20mi%20código"; // abre WhatsApp Web en PC
   }
 
   // window.open("whatsapp://send?phone=5493854989374&text=Hola%20quiero%20mi%20código", "_blank"
